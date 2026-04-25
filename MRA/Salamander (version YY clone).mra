@@ -1,0 +1,152 @@
+<!--
+　　------------------------------------------------------------------------
+    Modification Notice / 改変情報
+    ------------------------------------------------------------------------
+
+    This file is a modified version of an original MRA file licensed under
+    the GNU General Public License v2.
+
+    本ファイルはGNU General Public License v2で公開されている
+    オリジナルのMRAファイルを改変したものです。
+
+    ------------------------------------------------------------------------
+    Original Work / 元の著作物
+    ------------------------------------------------------------------------
+
+    Original author: Raki (Sehyeon Kim)
+    Source: https://github.com/MiSTer-devel/Arcade-Salamander_MiSTer
+
+    ------------------------------------------------------------------------
+    Modifications / 変更内容
+    ------------------------------------------------------------------------
+
+    Modified by: Anko
+    Date: 2026/04/13
+
+    Changes:
+    - Added support for "Salamander (version YY clone)" set
+    - Adjusted DIP Switch
+    - Source http://web.archive.org/web/20080928131819/http://tiff.kitanaka.net/hiki/?%BA%BB%CD%E5%D2%D8%BC%D8%BE%DE%C9%CA%A5%AF%A5%ED%A1%BC%A5%F3%C8%C7%2F+main
+
+    変更者: あんこ
+    日付: 2026年4月13日
+
+    変更内容:
+    - DIPの調整 
+　　ソース http://web.archive.org/web/20080928131819/http://tiff.kitanaka.net/hiki/?%BA%BB%CD%E5%D2%D8%BC%D8%BE%DE%C9%CA%A5%AF%A5%ED%A1%BC%A5%F3%C8%C7%2F+main
+
+    ------------------------------------------------------------------------
+    License / ライセンス
+    ------------------------------------------------------------------------
+
+    This file is licensed under the GNU General Public License v2.
+    You may redistribute and/or modify it under the terms of the GPLv2.
+
+    本ファイルはGNU General Public License v2のもとで公開されています。
+    GPLv2の条件に従い、再配布および改変が可能です。
+
+    Full license text:
+    https://opensource.org/licenses/gpl-2.0.php
+
+    ------------------------------------------------------------------------
+    ROM Disclaimer / ROMに関する注意
+    ------------------------------------------------------------------------
+
+    This file does NOT include any ROM data.
+    Users must obtain game data legally.
+
+    本ファイルにはROMデータは含まれていません。
+    ゲームデータは各自で合法的に入手してください。
+
+    ------------------------------------------------------------------------
+-->
+
+<misterromdescription>
+    <name>Salamander (version YY clone)</name>
+    <mameversion>0000</mameversion>
+    <setname>spclone</setname>
+    <mratimestamp>20241030</mratimestamp>
+    <year>1986</year>
+    <manufacturer>Konami</manufacturer>
+    <category>Shmup</category>
+    <rbf>Salamander</rbf>
+    <about author="Raki" [twitter="@RCAVictor](mailto:twitter="@RCAVictor)Co"></about>
+    <resolution>15kHz</resolution>
+    <rotation>horizontal</rotation>
+    <players>1</players>
+    <joystick>8-way</joystick>
+    <special_controls></special_controls>
+    <num_buttons>3</num_buttons>
+
+    <!--
+        DIP default values:
+          DSW0 (bits  0- 7) = 0xFF : Coin A=1C1C, Font=Koi no Hotrock, Logo=OLD, Pulse=PULSE, 2P input=1P side
+          DSW1 (bits  8-15) = 0x5B : Lives=3(0x03), Stage4 expert=ON(0x00), Bonus=100k/300k(0x18), Difficulty=Normal(0x40), Demo Sound=ON(0x00)
+          DSW2 (bits 16-23) = 0x0F : Flip=normal, Cabinet=Upright, Mode=Game, bit19=unused
+        default="FF,5B,0F"
+    -->
+    <!--
+        MRA ids order rule: bit=1 side first, bit=0 side last.
+        Author spec: on=1, off=0
+
+        DSW0 default=0xFF:
+          bits0-3 = 0xF  -> 1C1P
+          bit4    = 1    -> Gradius III font  (DIP1-5: 0=Hotrock, 1=GradiusIII)
+          bit5    = 1    -> NEW logo          (DIP1-6: 0=OLD, 1=NEW)
+          bit6    = 1    -> RIPPLE            (DIP1-7: 0=PULSE, 1=RIPPLE)
+          bit7    = 1    -> 1P side           (DIP1-8: 0=2P side, 1=1P side)
+        DSW1 default=0x00:
+          bits8-9 = 00   -> 3 lives           (DIP2-12: 00=3, 01=4, 10=5, 11=6)
+          bit10   = 0    -> hatches off       (DIP2-3:  0=off, 1=on)
+          bits11-12=00   -> 100K/300K bonus   (DIP2-45: 00=100k/300k, 01=70k/200k, 10=100k only, 11=none)
+          bits13-14=00   -> Easy              (DIP2-67: 00=Easy, 01=Normal, 10=Hard, 11=VeryHard)
+          bit15   = 0    -> Demo Sound off    (DIP2-8:  0=off, 1=on)
+        DSW2 default=0x00:
+          bit16   = 0    -> Normal screen     (DIP3-1: 0=normal, 1=flip)
+          bit17   = 0    -> Table cabinet     (DIP3-2: 0=table, 1=upright)
+          bit18   = 0    -> Game mode         (DIP3-3: 0=game, 1=test)
+        default="FF,00,00"
+    -->
+    <switches default="FF,00,00">
+        <!-- DSW0 (DIP1) -->
+        <!-- bits 0-3: reserved/unused per author spec -->
+        <dip bits="4"    name="Font"                  ids="Gradius III,Koi no Hotrock"/>
+        <dip bits="5"    name="Logo"                  ids="New (1987-),Old (pre-1987)"/>
+        <dip bits="6"    name="Pulse Gauge"            ids="Ripple,Pulse"/>
+        <dip bits="7"    name="2P Alone Play"          ids="1P side,2P side"/>
+        <!-- DSW1 (DIP2) -->
+        <dip bits="8,9"  name="Lives"                 ids="6,5,4,3"/>
+        <dip bits="10"   name="Stage4 Expert Hatches"  ids="On,Off"/>
+        <dip bits="11,12" name="Bonus Life"            ids="None,100K Only,70K Every 200K,100K Every 300K"/>
+        <dip bits="13,14" name="Difficulty"            ids="Very Hard,Hard,Normal,Easy"/>
+        <dip bits="15"   name="Demo Sound"             ids="On,Off"/>
+        <!-- DSW2 (DIP3) -->
+        <dip bits="16"   name="Flip Screen"            ids="Normal,Flip"/>
+        <dip bits="17"   name="Cabinet Type"           ids="Table,Upright"/>
+        <dip bits="18"   name="Service Mode"           ids="Game,Test"/>
+        <!-- bit 19 is undefined/unused -->
+    </switches>
+
+    <rom index='0' md5="None" type='nonmerged' zip='salamand.zip|spclone.zip'>
+        <!-- graphic data hi    0x000000-0x01ffff -->
+        <part crc="e5caf6e6" name="587-c03.17b"/>
+        <!-- graphic data lo    0x020000-0x03ffff -->
+        <part crc="c2f567ea" name="587-c06.17c"/>
+
+        <!-- pcm samples        0x040000-0x05ffff -->
+        <part crc="09fe0632" name="587-c01.10a"/>
+
+        <!-- game program hi    0x060000-0x06ffff -->
+        <part crc="14c19a46" name="spclone.18b"/>
+        <!-- game program lo    0x070000-0x07ffff -->
+        <part crc="fdafc246" name="spclone.18c"/>
+
+        <!-- sound program      0x080000-0x087fff -->
+        <part crc="bf83b182" name="spclone.11j"/>
+
+        <!-- vlm commands       0x088000-0x08bfff -->
+        <part crc="f9ac6b82" name="587-d08.8g"/>
+    </rom>
+
+    <buttons default="Select,R,Start,A,B,X" names="Service,Coin,Start,Shoot,Missile,Power-up"></buttons>
+</misterromdescription>
